@@ -1,0 +1,22 @@
+<div class="row header">
+  <div style="width: 20%; float: left">
+    <div class="col-12 align-header-text">{{shopName}}</div>
+  </div>
+  <div class="top-block">
+    <div class="search-block">
+      <a #homeMenu class="header-text" routerLink="/products">Home</a>
+      <a class="header-text" *ngIf="userLogged && user.email_id" (click)="logout()">Logout</a>
+      <a class="header-text" *ngIf="!userLogged" routerLink="/login">Login</a>
+    </div>
+    <div class="image-avatar" *ngIf="userLogged" #header>
+      <div class="dropdown">
+        <ngx-avatar name="{{user.email}}"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    size="50" [round]="true">
+        </ngx-avatar>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--style="z-index: 1010;top: 61px;left: 1227px;"-->

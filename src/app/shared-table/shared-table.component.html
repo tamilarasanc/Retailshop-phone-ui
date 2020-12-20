@@ -1,0 +1,31 @@
+<div  #tableWaper class="virtualTableWrap" *ngIf="data">
+   <p-table #ptable styleClass="virtualTable"
+   [value]="data" [scrollable]="scrollable" [rows]="rows" scrollHeight="{{scrollHeight}}" [responsive]="true"
+   [sortField] = "sortField" [virtualScroll]="true" [lazy]="lazy" [totalRecords]="totalRecords" [virtualRowHeight]="virtualRowHeight"
+   [resizableColumns]="true" selectionMode="single" [(selection)]="selectedRow"
+   (onRowSelect)="onRowSelect($event)" [metaKeySelection]="false" (onLazyLoad)="loadDataOnScroll($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field" [ngStyle]="{'width.%': col.widthPercent}">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr [pSelectableRow]="row">
+                <td *ngFor="let col of cols" cuxEllipsify [ngStyle]="{'width.%': col.widthPercent}">
+                    <span *ngIf="col.currency !== true; else currencyColumn">
+                        {{row[col.field]}}
+                    </span>
+                  <ng-template #currencyColumn>
+                    <span>
+                       {{row[col.field] | currency:'INR'}}
+                    </span>
+                      <input type="checkbox" name="vehicle1" (click)="selectRow($event, row)" value="true">
+                  </ng-template>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

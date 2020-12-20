@@ -1,0 +1,40 @@
+<div class="container" [formGroup]="userForm">
+  <div class="col-12 login-block">
+    <div class="col-12 login-text"><h3>Sign In</h3></div>
+    <div class="col-12 col-sm-12 form-group">
+      <input type="text" pInputText formControlName="email" placeholder="Email" class="form-control">
+      <div class="text-danger"
+           *ngIf="userForm.get('email').touched && userForm.get('email').hasError('required')">
+        Enter username or Email
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 form-group">
+      <input #passwordField type="password"
+             pInputText formControlName="password" placeholder="Password" class="form-control password-field">
+      <div class="align-eye"><i *ngIf="!passwordVisible" class="fa fa-eye-slash password-icon" (click)="showPassword()"></i>
+        <i *ngIf="passwordVisible" class="fa fa-eye password-icon" (click)="showPassword()"></i>
+      </div>
+      <div class="text-danger"
+           *ngIf="userForm.get('password').touched && userForm.get('password').hasError('required')">
+        Enter Password
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 form-group">
+      <div class="text-danger align-server-text"
+           *ngIf="serverError">
+        Invalid username or password
+      </div>
+    </div>
+    <!--        <div class="col-12 form-group">-->
+    <!--          <div class="form-check-inline">-->
+    <!--            <label class="form-check-label">-->
+    <!--              <input type="checkbox" class="form-check-input" value="">Remember me-->
+    <!--            </label>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <div class="col-12 form-group button-sign-in">
+      <p-button label="Sign In"
+              (click)="login()" [disabled]="!userForm.valid"></p-button>
+    </div>
+  </div>
+</div>

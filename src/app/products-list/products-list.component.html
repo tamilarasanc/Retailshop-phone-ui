@@ -1,0 +1,84 @@
+<div class="p-grid card">
+    <div>
+        <div style="display: flex">
+            <div style="width: 80%">
+                <h3 style="padding-left: 17px">Products</h3>
+            </div>
+            <div style="width: 20%; margin-top: 20px; text-align:right">
+                <span style="padding-right: 20px;" *ngIf="tableSelectedData.length > 0">
+                    <p-button label="Purchase" (onClick)="showPurchasePops()"></p-button>
+                </span>
+                <p-button  *ngIf="authService.role == 1" label="Add Inventory" (onClick)="showUploader($event)" ></p-button>
+            </div>
+        </div>
+        <div>
+            <app-shared-table #sharedTable
+                              [cols]="columns"
+                              [data]="products"
+                              [rows]="rows"
+                              [sortField]='defaultSortField'
+                              [minBufferPx]="minBufferPx"
+                              [maxBufferPx]="maxBufferPx"
+                              [scrollable]="scrollable"
+                              [scrollHeight]="scrollHeight"
+                              [lazy]="lazy"
+                              [virtualScroll]="virtualScroll"
+                              [virtualRowHeight]="virtualRowHeight"
+                              [totalRecords]="totalRecords"
+                              [loading]="loading"
+                              (loadChunk)="loadProducts($event)"
+                              (totalSelectedData)="totalSelectedData($event)"
+            ></app-shared-table>
+        </div>
+        <p-dialog [(visible)]="display" [modal]="true">
+            <p-header>
+                Please upload the inventory in Excel
+            </p-header>
+            <div class="content">
+                <div class="file-block">
+                  <span class="btn" style="border: none;">
+                    <input #myFile type="file" (change)="addFile($event.target.files)" name="myFile">
+                  </span>
+                </div>
+              <div>
+                <a href="assets/sample-files/retail-inventory-sample.xlsx" download
+                   class="sample-link" (click)="yoclickme.click()" #yoclickme>Download Sample file</a>
+              </div>
+            </div>
+              <p-footer>
+                <p-button label="Upload" (onClick)="uploadInventory($event)"></p-button>
+              </p-footer>
+        </p-dialog>
+
+        <p-dialog [(visible)]="showPurchase" [modal]="true">
+            <p-header>
+                Please add your shipping address
+            </p-header>
+            <div class="content" *ngIf="showPurchase" [formGroup]="shippingAddress">
+                <div style="padding-bottom: 5px">
+                    <input type="text" class="input-width" pInputText formControlName="name" placeholder="Name"/>
+                </div>
+                <div style="padding-bottom: 5px">
+                    <input type="text" class="input-width" pInputText formControlName="address1" placeholder="Address"/>
+                </div>
+                <div style="padding-bottom: 5px">
+                    <input type="text" class="input-width" pInputText formControlName="address2" placeholder="Address2"/>
+                </div>
+                <div style="padding-bottom: 5px">
+                    <input type="text" class="input-width" pInputText formControlName="city" placeholder="City"/>
+                </div>
+                <div style="padding-bottom: 5px">
+                    <input type="text" class="input-width" pInputText formControlName="state" placeholder="State"/>
+                </div>
+                <div style="padding-bottom: 5px">
+                    <input type="text" class="input-width" pInputText formControlName="postal_code" placeholder="Pin code"/>
+                </div>
+            </div>
+            <p-footer>
+                <p-button label="Purchase Go" *ngIf="showPurchase"
+                          [disabled]="!shippingAddress.valid"
+                          (onClick)="purchaseProducts()"></p-button>
+            </p-footer>
+        </p-dialog>
+    </div>
+</div>

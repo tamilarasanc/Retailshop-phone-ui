@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>RetailUi</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body style="overflow: hidden">
+<div id="loader" style="margin: 0;padding: 0">
+  <style>
+    .application-loading-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #009688;
+    }
+
+    .application-loading-box {
+      border: 16px solid #f3f3f3;
+      /* Light grey */
+      border-top: 16px solid #3498db;
+      /* Blue */
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+      text-align: center;
+    }
+
+    .application-loading-text {
+      position: absolute;
+    }
+    .loading-text-arrange {
+      position: relative;
+      top: 2px;
+      font-size: 20px;
+      font-family: sans-serif;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <div class="application-loading-container">
+    <div class="application-loading-text"><h1 class="loading-text-arrange">Loading</h1></div>
+    <div class="application-loading-box"></div>
+  </div>
+</div>
+<app-root></app-root>
+</body>
+</html>

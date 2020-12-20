@@ -1,0 +1,254 @@
+{
+  "info": {
+    "title": "API title",
+    "version": "0.0.1"
+  },
+  "swagger": "2.0",
+  "produces": [
+    "application/json"
+  ],
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operations about users"
+    },
+    {
+      "name": "shops",
+      "description": "Operations about shops"
+    }
+  ],
+  "paths": {
+    "/api/v1/users/authenticate": {
+      "post": {
+        "description": "Authenticate",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "description": "Email",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "description": "Password",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Authenticate"
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "operationId": "postApiV1UsersAuthenticate"
+      }
+    },
+    "/api/v1/shops/{shop_id}/purchased": {
+      "get": {
+        "description": "Get purchased products",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "default": 30,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "shop_id",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get purchased products"
+          }
+        },
+        "tags": [
+          "shops"
+        ],
+        "operationId": "getApiV1ShopsShopIdPurchased"
+      }
+    },
+    "/api/v1/shops/{shop_id}/purchase": {
+      "post": {
+        "description": "Purchase products",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "products",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "shipping_address[name]",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "shipping_address[address1]",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "shipping_address[address2]",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "shipping_address[state]",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "shipping_address[city]",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "shipping_address[postal_code]",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "shop_id",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Purchase products"
+          }
+        },
+        "tags": [
+          "shops"
+        ],
+        "operationId": "postApiV1ShopsShopIdPurchase"
+      }
+    },
+    "/api/v1/shops/{shop_id}/bulk_import": {
+      "post": {
+        "description": "Import products into the inventry",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "file",
+            "type": "file",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "shop_id",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Import products into the inventry"
+          }
+        },
+        "tags": [
+          "shops"
+        ],
+        "operationId": "postApiV1ShopsShopIdBulkImport"
+      }
+    },
+    "/api/v1/shops/{shop_id}/products": {
+      "get": {
+        "description": "Products listing based on shop with limit and offset",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "format": "int32",
+            "default": 30,
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "shop_id",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products listing based on shop with limit and offset"
+          }
+        },
+        "tags": [
+          "shops"
+        ],
+        "operationId": "getApiV1ShopsShopIdProducts"
+      }
+    }
+  }
+}
